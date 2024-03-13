@@ -1,4 +1,5 @@
 -- Display all available tables in the Sakila database.alter
+use sakila;
 show tables;
 -- Retrieve all the data from the tables actor, film and customer.
 select * from actor,film,customer;
@@ -13,7 +14,7 @@ select name as language from language; -- English, Italian, Japanese, Mandarin, 
 
 -- 3.3 List of first names of all employees from the staff table
 
-select distinct first_name from staff; -- 2 names: Mike and John
+select first_name from staff; -- 2 names: Mike and John
 
 -- Retrieve unique release years.
 select distinct release_year from film; -- 2006
@@ -23,8 +24,12 @@ select distinct release_year from film; -- 2006
 select distinct store_id from store; -- 2
 
 -- 5.2 Determine the number of employees that the company has.
-select distinct staff_id from staff; -- 2
+select count(staff_id) from staff; -- 2
+
 -- 5.3 Determine how many films are available for rent and how many have been rented.
+select count(rental_id) as films_rented from rental;
+select count(*) as films_available from film;
+
 select distinct film_id from inventory; -- 958 
 select distinct rental_id from rental where rental_date is not null;
 select distinct rental_id from rental where fk_rental_inventory is null;
